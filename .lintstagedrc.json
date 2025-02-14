@@ -1,0 +1,6 @@
+{
+  "*.{js,jsx,ts,tsx}": [
+    "prettier --write './**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
+    "next lint"
+  ]
+}
