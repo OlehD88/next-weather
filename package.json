@@ -8,7 +8,7 @@
 		"start": "next start",
 		"lint": "next lint",
 		"lint:fix": "next lint --fix",
-		"format": "prettier --write './**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
+		"format": "prettier --write './src/**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"prepare": "husky install"
@@ -33,7 +33,6 @@
 		"eslint": "^9",
 		"eslint-config-next": "15.1.7",
 		"eslint-config-prettier": "^10.0.1",
-		"eslint-plugin-prettier": "^5.2.3",
 		"eslint-plugin-storybook": "^0.11.2",
 		"husky": "^8.0.0",
 		"lint-staged": "^15.4.3",
