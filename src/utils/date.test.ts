@@ -1,6 +1,6 @@
-import { getDayNameFromDate } from './weather'
+import { getDayNameFromDate } from './date'
 
-describe('Weather utils functions', () => {
+describe('Date utils functions', () => {
 	describe('getDayNameFromDate', () => {
 		const validDateString = '2025-02-15T11:51:00+01:00'
 		const invalidDateString = '2025-02-15hello-worldT11:51:00+01'

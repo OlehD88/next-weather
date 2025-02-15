@@ -2,7 +2,7 @@ import clsx from 'clsx'
 
 import { TEMPERATURE_SIGN } from '@/consts'
 import { TemperatureUnit } from '@/types/weather'
-import { getDayNameFromDate } from '@/utils/weather'
+import { getDayNameFromDate } from '@/utils/date'
 
 type CurrentWeatherProps = {
 	location: string
