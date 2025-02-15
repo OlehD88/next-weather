@@ -1,3 +1,5 @@
+'use client'
+
 import clsx from 'clsx'
 
 import { TEMPERATURE_SIGN } from '@/consts'
@@ -10,6 +12,7 @@ type CurrentWeatherProps = {
 	weatherInfo: string
 	date: string
 	unit: TemperatureUnit
+	onUnitChange: (unit: TemperatureUnit) => void
 }
 
 export const CurrentWeather: React.FC<CurrentWeatherProps> = ({
@@ -18,6 +21,7 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = ({
 	weatherInfo,
 	date,
 	unit,
+	onUnitChange,
 }) => {
 	const dayName = getDayNameFromDate(date)
 
@@ -46,6 +50,7 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = ({
 					{units.map((unitInfo) => (
 						<button
 							key={unitInfo.name}
+							onClick={onUnitChange.bind(null, unitInfo.unit)}
 							className={clsx(
 								'place-items-center w-12 h-12 text-4xl card-gradient rounded-xl',
 								'hover:text-[var(--secondary-color)]',

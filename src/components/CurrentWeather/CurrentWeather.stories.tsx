@@ -30,5 +30,6 @@ export const Main: Story = {
 		weatherInfo: 'Light rain',
 		date: '2025-02-15T11:51:00+01:00',
 		unit: TemperatureUnit.Celsius,
+		onUnitChange: () => {},
 	},
 }
