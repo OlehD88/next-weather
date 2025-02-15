@@ -1,50 +1,59 @@
 {
-	"name": "next-weather",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"lint:fix": "next lint --fix",
-		"format": "prettier --write './src/**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
-		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build",
-		"prepare": "husky install"
-	},
-	"dependencies": {
-		"next": "15.1.7",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
-	},
-	"devDependencies": {
-		"@chromatic-com/storybook": "^3.2.4",
-		"@eslint/eslintrc": "^3",
-		"@storybook/addon-essentials": "^8.5.6",
-		"@storybook/addon-interactions": "^8.5.6",
-		"@storybook/blocks": "^8.5.6",
-		"@storybook/nextjs": "^8.5.6",
-		"@storybook/react": "^8.5.6",
-		"@storybook/test": "^8.5.6",
-		"@types/node": "^20",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"eslint": "^9",
-		"eslint-config-next": "15.1.7",
-		"eslint-config-prettier": "^10.0.1",
-		"eslint-plugin-storybook": "^0.11.2",
-		"husky": "^8.0.0",
-		"lint-staged": "^15.4.3",
-		"postcss": "^8",
-		"prettier": "^3.5.1",
-		"storybook": "^8.5.6",
-		"tailwindcss": "^3.4.1",
-		"typescript": "^5"
-	},
-	"eslintConfig": {
-		"extends": [
-			"plugin:storybook/recommended"
-		]
-	}
+  "name": "next-weather",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write './src/**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "prepare": "husky install",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "next": "15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@eslint/eslintrc": "^3",
+    "@storybook/addon-essentials": "^8.5.6",
+    "@storybook/addon-interactions": "^8.5.6",
+    "@storybook/blocks": "^8.5.6",
+    "@storybook/nextjs": "^8.5.6",
+    "@storybook/react": "^8.5.6",
+    "@storybook/test": "^8.5.6",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.7",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-storybook": "^0.11.2",
+    "husky": "^8.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.4.3",
+    "postcss": "^8",
+    "prettier": "^3.5.1",
+    "storybook": "^8.5.6",
+    "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
 }
