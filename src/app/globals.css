@@ -21,6 +21,10 @@
 	background: var(--card-gradient);
 }
 
+.accent-color {
+	color: var(--secondary-color);
+}
+
 body {
 	color: var(--primary-color);
 	background: var(--main-bg);

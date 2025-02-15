@@ -20,17 +20,17 @@ describe('CurrentWeather', () => {
 	it('should show main parts of current weather information', () => {
 		const { getByTestId } = customRender()
 
-		expect(getByTestId('currentWeatherLocation')).toHaveTextContent(
+		expect(getByTestId('currentWeather-location')).toHaveTextContent(
 			'Amsterdam, NL',
 		)
-		expect(getByTestId('currentWeaterhTemperature')).toHaveTextContent('7')
+		expect(getByTestId('currentWeather-temperature')).toHaveTextContent('7')
 
-		const unitButtons = getByTestId('currentWeatherUnits').getElementsByTagName(
-			'button',
-		)
+		const unitButtons = getByTestId(
+			'currentWeather-units',
+		).getElementsByTagName('button')
 		expect(unitButtons.length).toEqual(2)
 
-		const infoSection = getByTestId('currentWeatherInfo')
+		const infoSection = getByTestId('currentWeather-info')
 		expect(infoSection).toHaveTextContent('Light rain')
 		expect(infoSection).toHaveTextContent('Saturday')
 	})
@@ -39,9 +39,9 @@ describe('CurrentWeather', () => {
 		const onUnitChange = jest.fn()
 		const { getByTestId } = customRender({ onUnitChange })
 
-		const unitButtons = getByTestId('currentWeatherUnits').getElementsByTagName(
-			'button',
-		)
+		const unitButtons = getByTestId(
+			'currentWeather-units',
+		).getElementsByTagName('button')
 		expect(onUnitChange).not.toHaveBeenCalled()
 
 		act(() => {
