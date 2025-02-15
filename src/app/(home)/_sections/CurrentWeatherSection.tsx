@@ -1,9 +1,9 @@
 'use client'
 
 import { TemperatureUnit } from '@/types/weather'
-import { CurrentWeather } from './CurrentWeather'
+import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather'
 
-export const CurrentWeatherContainer = () => {
+export const CurrentWeatherSection = () => {
 	const mockData = {
 		location: 'New York',
 		temperature: 25,

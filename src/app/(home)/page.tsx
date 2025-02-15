@@ -1,4 +1,4 @@
-import { CurrentWeatherContainer } from '@/components/CurrentWeather/CurrentWeather.container'
+import { CurrentWeatherSection } from '@/app/(home)/_sections/CurrentWeatherSection'
 import { Header } from '@/components/Header/Header'
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
 		<main>
 			<Header />
 			<section>Location Search</section>
-			<CurrentWeatherContainer />
+			<CurrentWeatherSection />
 			<section>Forecast</section>
 			<section>Chart</section>
 		</main>
