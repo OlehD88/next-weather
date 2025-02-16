@@ -1,0 +1,152 @@
+[
+  {
+    "Version": 1,
+    "Key": "249758",
+    "Type": "City",
+    "Rank": 30,
+    "LocalizedName": "Amsterdam",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509299",
+    "Type": "City",
+    "Rank": 45,
+    "LocalizedName": "Amsterdam Centrum",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509283",
+    "Type": "City",
+    "Rank": 45,
+    "LocalizedName": "Amsterdam Nieuw-West",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509344",
+    "Type": "City",
+    "Rank": 45,
+    "LocalizedName": "Amsterdam Noord",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509294",
+    "Type": "City",
+    "Rank": 45,
+    "LocalizedName": "Amsterdam Oost",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509347",
+    "Type": "City",
+    "Rank": 45,
+    "LocalizedName": "Amsterdam West",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509274",
+    "Type": "City",
+    "Rank": 45,
+    "LocalizedName": "Amsterdam Zuid",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "249493",
+    "Type": "City",
+    "Rank": 45,
+    "LocalizedName": "Amsterdam Zuidoost",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509289",
+    "Type": "City",
+    "Rank": 55,
+    "LocalizedName": "Amsterdam Oud-Oost",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  },
+  {
+    "Version": 1,
+    "Key": "3509308",
+    "Type": "City",
+    "Rank": 55,
+    "LocalizedName": "Amsterdam Oud-West",
+    "Country": {
+      "ID": "NL",
+      "LocalizedName": "Netherlands"
+    },
+    "AdministrativeArea": {
+      "ID": "NH",
+      "LocalizedName": "North Holland"
+    }
+  }
+]

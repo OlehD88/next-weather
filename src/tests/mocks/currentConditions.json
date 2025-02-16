@@ -1,0 +1,25 @@
+[
+  {
+    "LocalObservationDateTime": "2025-02-15T11:51:00+01:00",
+    "EpochTime": 1739616660,
+    "WeatherText": "Light snow",
+    "WeatherIcon": 19,
+    "HasPrecipitation": true,
+    "PrecipitationType": "Snow",
+    "IsDayTime": true,
+    "Temperature": {
+      "Metric": {
+        "Value": 2.5,
+        "Unit": "C",
+        "UnitType": 17
+      },
+      "Imperial": {
+        "Value": 36,
+        "Unit": "F",
+        "UnitType": 18
+      }
+    },
+    "MobileLink": "http://www.accuweather.com/en/nl/laren/249578/current-weather/249578?lang=en-us",
+    "Link": "http://www.accuweather.com/en/nl/laren/249578/current-weather/249578?lang=en-us"
+  }
+]

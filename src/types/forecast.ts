@@ -6,9 +6,8 @@ export enum TemperatureUnit {
 export type ForecastDayItem = {
 	date: string
 	icon: number
-	maxTemperature?: number
-	minTemperature?: number
-	currentTemperature?: number
+	maxTemperature: number
+	minTemperature: number
 	weatherInfo: string
 }
 

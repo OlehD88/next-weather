@@ -25,17 +25,19 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({
 	return (
 		<div
 			data-testid="weatherCard"
-			className="max-w-48 font-black px-2 pb-9 pt-32 card-gradient rounded-xl"
+			className="max-w-48 xl:max-w-52 font-black px-2 pb-9 pt-32 card-gradient rounded-xl"
 		>
-			<div data-testid="weatherCard-date" className="text-2xl mb-7 px-2">
+			<div data-testid="weatherCard-date" className="text-xl lg:text-2xl mb-7 px-2">
 				{shortDateInfo}
 			</div>
 			<div data-testid="weatherCard-icon" className="mb-5">
 				<Image src={iconUrl} width={60} height={60} alt={weatherInfo} />
 			</div>
 			<div data-testid="weatherCard-temperature" className="flex justify-start items-end mb-5">
-				<div className="text-5xl accent-color mr-5">{formatTemperature(maxTemperature)}</div>
-				<div className="text-4xl">{formatTemperature(minTemperature)}</div>
+				<div className="text-4xl xl:text-5xl accent-color mr-4">
+					{formatTemperature(maxTemperature)}
+				</div>
+				<div className="text-3xl xl:text-4xl">{formatTemperature(minTemperature)}</div>
 			</div>
 			<div data-testid="weatherCard-weatherInfo" className="text-lg px-2">
 				{weatherInfo}
