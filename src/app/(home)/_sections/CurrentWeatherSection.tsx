@@ -6,7 +6,7 @@ import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather'
 import { useForecast } from '@/contexts/forecastContext'
 import { useLocation } from '@/contexts/locationContext'
 import { getLocationName } from '@/utils/location'
-import Image from 'next/image'
+import { Spinner } from '@/components/Spinner/Spinner'
 
 export const CurrentWeatherSection = () => {
 	const {
@@ -29,15 +29,7 @@ export const CurrentWeatherSection = () => {
 	return (
 		<section className="dark-section pt-14 pb-32 flex justify-center">
 			{!currentWeather ? (
-				<div>
-					<Image
-						src="/spinner.svg"
-						alt="Loading"
-						width={160}
-						height={160}
-						className="animate-spin"
-					/>
-				</div>
+				<Spinner />
 			) : (
 				<CurrentWeather
 					unit={temperatureUnit}
