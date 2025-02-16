@@ -4,6 +4,7 @@ import { LocationProvider } from '@/contexts/locationContext'
 import { Header } from '@/components/Header/Header'
 import { CurrentWeatherSection } from './_sections/CurrentWeatherSection'
 import { ForecastSection } from './_sections/ForecastSection'
+import { LocationSearchSection } from './_sections/LocationSearchSection'
 
 export default function Home() {
 	return (
@@ -11,7 +12,7 @@ export default function Home() {
 			<LocationProvider>
 				<main>
 					<Header />
-					<section>Location Search</section>
+					<LocationSearchSection />
 					<CurrentWeatherSection />
 					<ForecastSection />
 					<section>Chart</section>

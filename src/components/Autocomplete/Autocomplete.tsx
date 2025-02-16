@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useState } from 'react'
 import clsx from 'clsx'
 
@@ -34,11 +36,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 		debounceTimeout.current = setTimeout(() => {
 			onSearchCallback(e.target.value)
 		}, 300)
-		setShowResults(true)
 	}
 
 	const onFocus = () => {
 		setShowResults(true)
+	}
+
+	const onBlur = () => {
+		setShowResults(false)
 	}
 
 	const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -46,6 +51,11 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 			setShowResults(false)
 			onSearchResultClick(searchResults[0].value)
 		}
+	}
+
+	const onOptionClick = (value: string) => {
+		setShowResults(false)
+		onSearchResultClick(value)
 	}
 
 	return (
@@ -62,6 +72,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 					placeholder={placeholder}
 					value={search}
 					onFocus={onFocus}
+					onBlur={onBlur}
 					onChange={onSearchChange}
 					onKeyDown={onKeyPress}
 					className="h-12 py-2 outline-none px-4 w-full text-lg rounded-md bg-[var(--secondary-bg)] text-[var(--primary-text)]"
@@ -76,8 +87,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 				{searchResults.map((result) => (
 					<li
 						key={result.value}
-						className="py-2 px-4 cursor-pointer hover:text-[var(--secondary-color)] first:text-[var(--secondary-color)]"
-						onClick={() => onSearchResultClick(result.value)}
+						className="py-2 px-4 cursor-pointer hover:text-[var(--secondary-color)]"
+						onClick={() => onOptionClick(result.value)}
 					>
 						{result.label}
 					</li>

@@ -59,7 +59,6 @@ export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) 
 		try {
 			const res = await axios.get(`/api/currentConditionsHistory/${locationKey}`)
 			const historyItems = getWeatherConditionHistoryItems(res.data)
-			console.log('historyItems', historyItems)
 			setWeatherConditionsHistory(historyItems)
 		} catch (error) {
 			console.error('Failed to fetch weather conditions history', error)
@@ -69,7 +68,6 @@ export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) 
 	const fetchCurrentWeatherConditions = async (locationKey: string) => {
 		try {
 			const res = await axios.get(`/api/currentConditions/${locationKey}`)
-			console.log(res.data)
 			const currentConditions = getWeatherConditionHistoryItems(res.data)[0]
 
 			setCurrentWeatherConditions(currentConditions)

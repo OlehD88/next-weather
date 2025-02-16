@@ -53,7 +53,6 @@ type PartialWeatherConditionHistoryResponse = {
 export const getWeatherConditionHistoryItems = (
 	history: PartialWeatherConditionHistoryResponse,
 ): WeatherConditionHistoryItem[] => {
-	console.log('history', history)
 	const historyItems = history.map((item) => {
 		return {
 			date: item.LocalObservationDateTime,
