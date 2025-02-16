@@ -5,3 +5,17 @@ export const getLocationName = ({ cityName, countryCode }: LocationData) => {
 
 	return !countryCode ? cityName : `${cityName}, ${countryCode}`
 }
+
+export const getLocationData = (res: {
+	LocalizedName: string
+	Country: {
+		ID: string
+	}
+	Key: string
+}): LocationData => {
+	return {
+		locationKey: res.Key,
+		cityName: res.LocalizedName,
+		countryCode: res.Country.ID,
+	}
+}
