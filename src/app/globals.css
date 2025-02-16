@@ -25,6 +25,10 @@
 	color: var(--secondary-color);
 }
 
+.recharts-xAxis {
+  transform: translate(0, 14px);  
+}
+
 body {
 	color: var(--primary-color);
 	background: var(--main-bg);

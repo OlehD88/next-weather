@@ -30,15 +30,15 @@ export const getForcastItemsFromFewDaysForcast = (
 		return {
 			date: day.Date,
 			icon: day.Day.Icon,
-			maxTemperature: day.Temperature.Maximum.Value,
-			minTemperature: day.Temperature.Minimum.Value,
+			maxTemperature: Math.round(day.Temperature.Maximum.Value),
+			minTemperature: Math.round(day.Temperature.Minimum.Value),
 			weatherInfo: day.Day.IconPhrase,
 		}
 	})
 	return daysForecast
 }
 
-type PartialWeatherConditionHistoryResponse = {
+type PartialWeatherConditionHistoryItem = {
 	LocalObservationDateTime: string
 	WeatherText: string
 	Temperature: {
@@ -49,19 +49,38 @@ type PartialWeatherConditionHistoryResponse = {
 			Value: number
 		}
 	}
-}[]
+}
 export const getWeatherConditionHistoryItems = (
-	history: PartialWeatherConditionHistoryResponse,
+	history: PartialWeatherConditionHistoryItem[],
 ): WeatherConditionHistoryItem[] => {
 	const historyItems = history.map((item) => {
 		return {
 			date: item.LocalObservationDateTime,
 			weatherInfo: item.WeatherText,
 			temperature: {
-				[TemperatureUnit.Celsius]: item.Temperature.Metric.Value,
-				[TemperatureUnit.Fahrenheit]: item.Temperature.Imperial.Value,
+				[TemperatureUnit.Celsius]: Math.round(item.Temperature.Metric.Value),
+				[TemperatureUnit.Fahrenheit]: Math.round(item.Temperature.Imperial.Value),
 			},
 		}
 	})
 	return historyItems
+}
+
+export const buildWeatherHistoryChartData = (
+	data: WeatherConditionHistoryItem[],
+	unit: TemperatureUnit,
+) => {
+	const threeHoursStepData = data.filter((_, index) => index % 3 === 0)
+	const reversed = threeHoursStepData.reverse()
+
+	const chartData = reversed.map((item) => {
+		const hours = new Date(item.date).getHours()
+		const temperature = item.temperature[unit]
+
+		return {
+			time: `${hours}:00`,
+			temperature: temperature,
+		}
+	})
+	return chartData
 }
