@@ -43,19 +43,23 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 	}
 
 	const onBlur = () => {
-		setShowResults(false)
+		setTimeout(() => {
+			setShowResults(false)
+		}, 200)
 	}
 
 	const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
 			setShowResults(false)
 			onSearchResultClick(searchResults[0].value)
+			setSearch(searchResults[0].label)
 		}
 	}
 
-	const onOptionClick = (value: string) => {
+	const onOptionClick = (result: { label: string; value: string }) => {
 		setShowResults(false)
-		onSearchResultClick(value)
+		setSearch(result.label)
+		onSearchResultClick(result.value)
 	}
 
 	return (
@@ -88,7 +92,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 					<li
 						key={result.value}
 						className="py-2 px-4 cursor-pointer hover:text-[var(--secondary-color)]"
-						onClick={() => onOptionClick(result.value)}
+						onClick={() => onOptionClick(result)}
 					>
 						{result.label}
 					</li>

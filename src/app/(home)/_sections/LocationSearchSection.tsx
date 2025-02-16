@@ -1,26 +1,19 @@
 'use client'
 
+import { useState } from 'react'
 import { Autocomplete } from '@/components/Autocomplete/Autocomplete'
 import { useLocation } from '@/contexts/locationContext'
+import { LocationData } from '@/types/location'
 
 export const LocationSearchSection = () => {
-	const { setLocationData } = useLocation()
-	const locationsList = [
-		{ cityName: 'New York', locationKey: 'New York', countryCode: 'US' },
-		{ cityName: 'London', locationKey: 'London', countryCode: 'GB' },
-		{ cityName: 'Paris', locationKey: 'Paris', countryCode: 'FR' },
-		{ cityName: 'Berlin', locationKey: 'Berlin', countryCode: 'DE' },
-		{ cityName: 'Tokyo', locationKey: 'Tokyo', countryCode: 'JP' },
-		{ cityName: 'Sydney', locationKey: 'Sydney', countryCode: 'AU' },
-		{ cityName: 'Rome', locationKey: 'Rome', countryCode: 'IT' },
-		{ cityName: 'Madrid', locationKey: 'Madrid', countryCode: 'ES' },
-		{ cityName: 'Beijing', locationKey: 'Beijing', countryCode: 'CN' },
-		{ cityName: 'Seoul', locationKey: 'Seoul', countryCode: 'KR' },
-		{ cityName: 'Bangkok', locationKey: 'Bangkok', countryCode: 'TH' },
-	]
-	const onSearchCallback = (search: string) => {
-		// fetch location data
-		console.log(search)
+	const { setLocationData, getCitiesSuggestions } = useLocation()
+	const [locationsList, setLocationsList] = useState<LocationData[]>([])
+
+	const onSearchCallback = async (search: string) => {
+		if (search?.length > 0) {
+			const locations = await getCitiesSuggestions(search)
+			setLocationsList(locations)
+		}
 	}
 	const onSearchResultClick = (value: string) => {
 		const newLocationData = locationsList.find((item) => item.locationKey === value)

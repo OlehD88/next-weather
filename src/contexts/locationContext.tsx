@@ -7,6 +7,7 @@ import { getLocationData } from '@/utils/location'
 type LocationContextType = {
 	locationData: LocationData | null
 	setLocationData: (locationData: LocationData) => void
+	getCitiesSuggestions: (searchQuery: string) => Promise<LocationData[]>
 }
 
 const LocationContext = createContext<LocationContextType | undefined>(undefined)
@@ -63,12 +64,25 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) 
 		}
 	}
 
+	const getCitiesSuggestions = async (searchQuery: string) => {
+		try {
+			const res = await axios.get('/api/citiesAutocomplete', {
+				params: { searchQuery },
+			})
+			const locationDataList = res.data.map(getLocationData)
+			return locationDataList
+		} catch (error) {
+			console.error('Failed to fetch cities suggestions', error)
+			return []
+		}
+	}
+
 	useEffect(() => {
 		handleInitUserLocation()
 	}, [])
 
 	return (
-		<LocationContext.Provider value={{ locationData, setLocationData }}>
+		<LocationContext.Provider value={{ locationData, setLocationData, getCitiesSuggestions }}>
 			{children}
 		</LocationContext.Provider>
 	)
