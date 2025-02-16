@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import axios, { AxiosError } from 'axios'
 
-export const GET = async (
-	req: NextRequest,
-	{ params }: { params: Promise<{ locationKey: string }> },
-) => {
+export const GET = async (req: NextRequest, { params }: { params: Promise<{ locationKey: string }> }) => {
 	const locationKey = (await params).locationKey
 	const metric = req.nextUrl.searchParams.get('metric') || 'true'
 	const apikey = process.env.WEATHER_API_KEY

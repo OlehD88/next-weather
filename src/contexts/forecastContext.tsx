@@ -33,11 +33,21 @@ export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) 
 		}
 	}
 
+	const fetchCurrentConditionsHistory = async (locationKey: string) => {
+		try {
+			const res = await axios.get(`/api/currentConditionsHistory/${locationKey}`)
+			console.log('res', res)
+		} catch (error) {
+			console.error('Failed to fetch current conditions history', error)
+		}
+	}
+
 	const values = {
 		temperatureUnit,
 		setTemperatureUnit,
 		fewDaysForcast,
 		fetchFewDaysForecast,
+		fetchCurrentConditionsHistory,
 	}
 
 	return <ForecastContext.Provider value={values}>{children}</ForecastContext.Provider>

@@ -1,7 +1,4 @@
-export const getDayNameFromDate = (
-	dateString: string,
-	locale: string = 'en-US',
-) => {
+export const getDayNameFromDate = (dateString: string, locale: string = 'en-US') => {
 	const date = new Date(dateString)
 	if (date.toString() === 'Invalid Date') {
 		return null
@@ -10,10 +7,7 @@ export const getDayNameFromDate = (
 	return date.toLocaleDateString(locale, { weekday: 'long' })
 }
 
-export const getShortDateInfo = (
-	dateString: string,
-	locale: string = 'en-US',
-) => {
+export const getShortDateInfo = (dateString: string, locale: string = 'en-US') => {
 	const date = new Date(dateString)
 	if (date.toString() === 'Invalid Date') {
 		return null

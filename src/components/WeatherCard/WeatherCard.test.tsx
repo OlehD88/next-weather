@@ -18,17 +18,16 @@ describe('WeatherCard', () => {
 
 		expect(getByTestId('weatherCard-date')).toHaveTextContent('FRI 14')
 
-		expect(
-			getByTestId('weatherCard-icon').getElementsByTagName('img')[0],
-		).toHaveAttribute('src', '/_next/image?url=%2Ficons%2F8.png&w=128&q=75')
+		expect(getByTestId('weatherCard-icon').getElementsByTagName('img')[0]).toHaveAttribute(
+			'src',
+			'/_next/image?url=%2Ficons%2F8.png&w=128&q=75',
+		)
 
 		const temperatureSection = getByTestId('weatherCard-temperature')
 		expect(temperatureSection.children.length).toEqual(2)
 		expect(temperatureSection.children[0]).toHaveTextContent('10')
 		expect(temperatureSection.children[1]).toHaveTextContent('5')
 
-		expect(getByTestId('weatherCard-weatherInfo')).toHaveTextContent(
-			'Light rain',
-		)
+		expect(getByTestId('weatherCard-weatherInfo')).toHaveTextContent('Light rain')
 	})
 })
