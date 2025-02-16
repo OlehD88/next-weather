@@ -27,7 +27,7 @@ export const CurrentWeatherSection = () => {
 	const currentWeather = currentWeatherConditions
 
 	return (
-		<section className="dark-section pt-14 pb-32 flex justify-center">
+		<section className="dark-section pt-14 pb-32 px-4">
 			{!currentWeather ? (
 				<Spinner />
 			) : (

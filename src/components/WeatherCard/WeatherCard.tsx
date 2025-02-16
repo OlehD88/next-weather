@@ -25,7 +25,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({
 	return (
 		<div
 			data-testid="weatherCard"
-			className="max-w-48 xl:max-w-52 font-black px-2 pb-9 pt-32 card-gradient rounded-xl"
+			className="font-black px-2 pb-9 pt-12 card-gradient rounded-xl w-44"
 		>
 			<div data-testid="weatherCard-date" className="text-xl lg:text-2xl mb-7 px-2">
 				{shortDateInfo}
