@@ -1,4 +1,4 @@
-import { ForecastDayItem } from '@/types/forecast'
+import { ForecastDayItem, TemperatureUnit, WeatherConditionHistoryItem } from '@/types/forecast'
 
 const TEMPERATURE_SIGN = 'º'
 
@@ -6,7 +6,7 @@ export const formatTemperature = (temperature: number) => {
 	return `${temperature}${TEMPERATURE_SIGN}`
 }
 
-export const getForcastItemsFromFewDaysForcast = (forecast: {
+type PartialForecastResponse = {
 	DailyForecasts: {
 		Date: string
 		Day: {
@@ -22,7 +22,10 @@ export const getForcastItemsFromFewDaysForcast = (forecast: {
 			}
 		}
 	}[]
-}): ForecastDayItem[] => {
+}
+export const getForcastItemsFromFewDaysForcast = (
+	forecast: PartialForecastResponse,
+): ForecastDayItem[] => {
 	const daysForecast = forecast.DailyForecasts.map((day) => {
 		return {
 			date: day.Date,
@@ -33,4 +36,33 @@ export const getForcastItemsFromFewDaysForcast = (forecast: {
 		}
 	})
 	return daysForecast
+}
+
+type PartialWeatherConditionHistoryResponse = {
+	LocalObservationDateTime: string
+	WeatherText: string
+	Temperature: {
+		Metric: {
+			Value: number
+		}
+		Imperial: {
+			Value: number
+		}
+	}
+}[]
+export const getWeatherConditionHistoryItems = (
+	history: PartialWeatherConditionHistoryResponse,
+): WeatherConditionHistoryItem[] => {
+	console.log('history', history)
+	const historyItems = history.map((item) => {
+		return {
+			date: item.LocalObservationDateTime,
+			weatherInfo: item.WeatherText,
+			temperature: {
+				[TemperatureUnit.Celsius]: item.Temperature.Metric.Value,
+				[TemperatureUnit.Fahrenheit]: item.Temperature.Imperial.Value,
+			},
+		}
+	})
+	return historyItems
 }

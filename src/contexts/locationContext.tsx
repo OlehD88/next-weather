@@ -1,5 +1,5 @@
 'use client'
-import { createContext, ReactNode, useState, useEffect } from 'react'
+import { createContext, ReactNode, useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { LocationData } from '@/types/location'
 import { getLocationData } from '@/utils/location'
@@ -11,6 +11,16 @@ type LocationContextType = {
 
 const LocationContext = createContext<LocationContextType | undefined>(undefined)
 
+export const useLocation = (): LocationContextType => {
+	const context = useContext(LocationContext)
+
+	if (context === undefined) {
+		throw new Error('useForecast must be used within a ForecastProvider')
+	}
+
+	return context
+}
+
 type LocationProviderProps = {
 	children: ReactNode
 }
@@ -18,7 +28,9 @@ type LocationProviderProps = {
 export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) => {
 	const [locationData, setLocationData] = useState<LocationData | null>(null)
 
-	const fetchLocationByPosition = async (position: GeolocationPosition): Promise<LocationData | null> => {
+	const fetchLocationByPosition = async (
+		position: GeolocationPosition,
+	): Promise<LocationData | null> => {
 		const { latitude, longitude } = position.coords
 		try {
 			const res = await axios.get('/api/geopositionSearch', {
@@ -55,5 +67,9 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) 
 		handleInitUserLocation()
 	}, [])
 
-	return <LocationContext.Provider value={{ locationData, setLocationData }}>{children}</LocationContext.Provider>
+	return (
+		<LocationContext.Provider value={{ locationData, setLocationData }}>
+			{children}
+		</LocationContext.Provider>
+	)
 }

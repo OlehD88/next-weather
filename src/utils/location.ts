@@ -1,6 +1,9 @@
 import { LocationData } from '@/types/location'
 
-export const getLocationName = ({ cityName, countryCode }: LocationData) => {
+export const getLocationName = (locationData: LocationData | null) => {
+	if (!locationData) return null
+	const { cityName, countryCode } = locationData
+
 	if (!cityName) return null
 
 	return !countryCode ? cityName : `${cityName}, ${countryCode}`

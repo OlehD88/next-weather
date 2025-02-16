@@ -11,3 +11,12 @@ export type ForecastDayItem = {
 	currentTemperature?: number
 	weatherInfo: string
 }
+
+export type WeatherConditionHistoryItem = {
+	date: string
+	temperature: {
+		[TemperatureUnit.Celsius]: number
+		[TemperatureUnit.Fahrenheit]: number
+	}
+	weatherInfo: string
+}

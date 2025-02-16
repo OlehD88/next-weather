@@ -16,6 +16,7 @@ const eslintConfig = [
 			'react/jsx-closing-bracket-location': 'error',
 			'react/jsx-closing-tag-location': 'error',
 			'react/exhaustive-deps': 'off',
+			'react-hooks/exhaustive-deps': 'off',
 		},
 	}),
 ]

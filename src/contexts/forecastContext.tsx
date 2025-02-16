@@ -1,17 +1,34 @@
 'use client'
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
 import axios from 'axios'
-import { ForecastDayItem, TemperatureUnit } from '@/types/forecast'
-import { getForcastItemsFromFewDaysForcast } from '@/utils/forecast'
+import { ForecastDayItem, TemperatureUnit, WeatherConditionHistoryItem } from '@/types/forecast'
+import {
+	getForcastItemsFromFewDaysForcast,
+	getWeatherConditionHistoryItems,
+} from '@/utils/forecast'
 
 type ForecastContextType = {
 	temperatureUnit: TemperatureUnit
 	setTemperatureUnit: (temperatureUnit: TemperatureUnit) => void
 	fewDaysForcast: ForecastDayItem[]
 	fetchFewDaysForecast: (locationKey: string) => void
+	weatherConditionsHistory: WeatherConditionHistoryItem[]
+	fetchWeatherConditionsHistory: (locationKey: string) => void
+	currentWeatherConditions?: WeatherConditionHistoryItem
+	fetchCurrentWeatherConditions: (locationKey: string) => void
 }
 
 const ForecastContext = createContext<ForecastContextType | undefined>(undefined)
+
+export const useForecast = (): ForecastContextType => {
+	const context = useContext(ForecastContext)
+
+	if (context === undefined) {
+		throw new Error('useForecast must be used within a ForecastProvider')
+	}
+
+	return context
+}
 
 type ForecastProviderProps = {
 	children: ReactNode
@@ -20,6 +37,11 @@ type ForecastProviderProps = {
 export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) => {
 	const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(TemperatureUnit.Celsius)
 	const [fewDaysForcast, setFewDaysForcast] = useState<ForecastDayItem[]>([])
+	const [currentWeatherConditions, setCurrentWeatherConditions] =
+		useState<WeatherConditionHistoryItem>()
+	const [weatherConditionsHistory, setWeatherConditionsHistory] = useState<
+		WeatherConditionHistoryItem[]
+	>([])
 
 	const fetchFewDaysForecast = async (locationKey: string) => {
 		try {
@@ -33,21 +55,38 @@ export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) 
 		}
 	}
 
-	const fetchCurrentConditionsHistory = async (locationKey: string) => {
+	const fetchWeatherConditionsHistory = async (locationKey: string) => {
 		try {
 			const res = await axios.get(`/api/currentConditionsHistory/${locationKey}`)
-			console.log('res', res)
+			const historyItems = getWeatherConditionHistoryItems(res.data)
+			console.log('historyItems', historyItems)
+			setWeatherConditionsHistory(historyItems)
 		} catch (error) {
-			console.error('Failed to fetch current conditions history', error)
+			console.error('Failed to fetch weather conditions history', error)
 		}
 	}
 
-	const values = {
+	const fetchCurrentWeatherConditions = async (locationKey: string) => {
+		try {
+			const res = await axios.get(`/api/currentConditions/${locationKey}`)
+			console.log(res.data)
+			const currentConditions = getWeatherConditionHistoryItems(res.data)[0]
+
+			setCurrentWeatherConditions(currentConditions)
+		} catch (error) {
+			console.error('Failed to fetch current conditions', error)
+		}
+	}
+
+	const values: ForecastContextType = {
 		temperatureUnit,
 		setTemperatureUnit,
 		fewDaysForcast,
 		fetchFewDaysForecast,
-		fetchCurrentConditionsHistory,
+		weatherConditionsHistory,
+		fetchWeatherConditionsHistory,
+		currentWeatherConditions: currentWeatherConditions,
+		fetchCurrentWeatherConditions: fetchCurrentWeatherConditions,
 	}
 
 	return <ForecastContext.Provider value={values}>{children}</ForecastContext.Provider>
