@@ -9,22 +9,16 @@ type LocationContextType = {
 	setLocationData: (locationData: LocationData) => void
 }
 
-const LocationContext = createContext<LocationContextType | undefined>(
-	undefined,
-)
+const LocationContext = createContext<LocationContextType | undefined>(undefined)
 
 type LocationProviderProps = {
 	children: ReactNode
 }
 
-export const LocationProvider: React.FC<LocationProviderProps> = ({
-	children,
-}) => {
+export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) => {
 	const [locationData, setLocationData] = useState<LocationData | null>(null)
 
-	const fetchLocationByPosition = async (
-		position: GeolocationPosition,
-	): Promise<LocationData | null> => {
+	const fetchLocationByPosition = async (position: GeolocationPosition): Promise<LocationData | null> => {
 		const { latitude, longitude } = position.coords
 		try {
 			const res = await axios.get('/api/geopositionSearch', {
@@ -53,9 +47,7 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({
 				},
 			)
 		} else {
-			console.error(
-				'Failec to get your location. Geolocation is not supported by this browser',
-			)
+			console.error('Failec to get your location. Geolocation is not supported by this browser')
 		}
 	}
 
@@ -63,9 +55,5 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({
 		handleInitUserLocation()
 	}, [])
 
-	return (
-		<LocationContext.Provider value={{ locationData, setLocationData }}>
-			{children}
-		</LocationContext.Provider>
-	)
+	return <LocationContext.Provider value={{ locationData, setLocationData }}>{children}</LocationContext.Provider>
 }

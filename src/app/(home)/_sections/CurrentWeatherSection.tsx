@@ -1,6 +1,6 @@
 'use client'
 
-import { TemperatureUnit } from '@/types/weather'
+import { TemperatureUnit } from '@/types/forecast'
 import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather'
 
 export const CurrentWeatherSection = () => {

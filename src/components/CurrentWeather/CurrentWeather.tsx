@@ -2,9 +2,9 @@
 
 import clsx from 'clsx'
 
-import { TemperatureUnit } from '@/types/weather'
+import { TemperatureUnit } from '@/types/forecast'
 import { getDayNameFromDate } from '@/utils/date'
-import { formatTemperature } from '@/utils/weather'
+import { formatTemperature } from '@/utils/forecast'
 
 const units = [
 	{
@@ -43,16 +43,10 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = ({
 				{location}
 			</div>
 			<div className="flex place-items-center space-x-4 mb-9">
-				<div
-					className="text-8xl text-[var(--secondary-color)] mr-16"
-					data-testid="currentWeather-temperature"
-				>
+				<div className="text-8xl text-[var(--secondary-color)] mr-16" data-testid="currentWeather-temperature">
 					{formatTemperature(temperature)}
 				</div>
-				<div
-					className="flex flex-col space-y-2"
-					data-testid="currentWeather-units"
-				>
+				<div className="flex flex-col space-y-2" data-testid="currentWeather-units">
 					{units.map((unitInfo) => (
 						<button
 							key={unitInfo.unit}
@@ -61,9 +55,7 @@ export const CurrentWeather: React.FC<CurrentWeatherProps> = ({
 								'place-items-center w-12 h-12 text-4xl card-gradient rounded-xl',
 								'hover:text-[var(--secondary-color)]',
 								{
-									'text-[var(--secondary-color)] cursor-default': isActiveUnit(
-										unitInfo.unit,
-									),
+									'text-[var(--secondary-color)] cursor-default': isActiveUnit(unitInfo.unit),
 								},
 							)}
 						>

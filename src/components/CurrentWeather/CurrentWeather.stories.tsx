@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { CurrentWeather } from './CurrentWeather'
-import { TemperatureUnit } from '@/types/weather'
+import { TemperatureUnit } from '@/types/forecast'
 
 const meta = {
 	title: 'CurrentWeather',
