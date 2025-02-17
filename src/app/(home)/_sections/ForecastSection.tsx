@@ -18,6 +18,8 @@ export const ForecastSection = () => {
 		enabled: !!locationData?.locationKey,
 	})
 
+	const showSpinner = isLoading || !locationData?.locationKey
+
 	return (
 		<section className="flex justify-center pt-24 pb-28 px-4">
 			<div className="max-w-5xl w-full">
@@ -25,7 +27,7 @@ export const ForecastSection = () => {
 					5 Days Forecast
 				</h2>
 				<div className="flex flex-col sm:flex-row flex-wrap items-center sm:items-stretch justify-center gap-4">
-					{isLoading && <Spinner />}
+					{showSpinner && <Spinner />}
 					{data.map((day) => (
 						<WeatherCard
 							key={day.date}

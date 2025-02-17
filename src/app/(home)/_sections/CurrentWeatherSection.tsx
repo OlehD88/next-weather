@@ -6,42 +6,56 @@ import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather'
 import { useForecast } from '@/contexts/forecastContext'
 import { useLocation } from '@/contexts/locationContext'
 import { getLocationName } from '@/utils/location'
-import { Spinner } from '@/components/Spinner/Spinner'
 import { fetchCurrentWeatherConditions } from '@/utils/forecast-api'
 
 export const CurrentWeatherSection = () => {
 	const { temperatureUnit, setTemperatureUnit } = useForecast()
 	const { locationData } = useLocation()
 
+	const initDataToShow = {
+		temperature: { C: 0, F: 0 },
+		weatherInfo: 'Fetching weather data...',
+		date: Date(),
+	}
+	let dataToShow = initDataToShow
+
 	const {
-		data = {
-			temperature: { C: 0, F: 0 },
-			weatherInfo: 'Fetching weather data...',
-			date: Date(),
-		},
+		data = initDataToShow,
 		isLoading,
+		isError,
 	} = useQuery({
 		queryKey: ['currentWeatherConditions', locationData?.locationKey],
 		queryFn: () => fetchCurrentWeatherConditions(locationData?.locationKey!),
 		enabled: !!locationData?.locationKey,
 	})
 
-	const locationName = getLocationName(locationData)
+	if (isLoading) {
+		dataToShow = initDataToShow
+	} else if (isError) {
+		dataToShow = {
+			temperature: { C: 0, F: 0 },
+			weatherInfo: 'Failed to fetch data',
+			date: '',
+		}
+	} else {
+		dataToShow = data
+	}
+
+	let locationName = 'Checking your location'
+	if (locationData) {
+		locationName = getLocationName(locationData) || ''
+	}
 
 	return (
 		<section className="dark-section pt-14 pb-32 px-4">
-			{isLoading ? (
-				<Spinner />
-			) : (
-				<CurrentWeather
-					unit={temperatureUnit}
-					location={locationName || 'Checking your location'}
-					temperature={data?.temperature?.[temperatureUnit]}
-					weatherInfo={data?.weatherInfo}
-					date={data?.date}
-					onUnitChange={setTemperatureUnit}
-				/>
-			)}
+			<CurrentWeather
+				unit={temperatureUnit}
+				location={locationName || 'Checking your location...'}
+				temperature={dataToShow?.temperature?.[temperatureUnit]}
+				weatherInfo={dataToShow?.weatherInfo}
+				date={dataToShow?.date}
+				onUnitChange={setTemperatureUnit}
+			/>
 		</section>
 	)
 }
