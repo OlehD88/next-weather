@@ -17,6 +17,7 @@ const eslintConfig = [
 			'react/jsx-closing-tag-location': 'error',
 			'react/exhaustive-deps': 'off',
 			'react-hooks/exhaustive-deps': 'off',
+			'@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
 		},
 	}),
 ]

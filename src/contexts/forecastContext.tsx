@@ -14,8 +14,7 @@ type ForecastContextType = {
 	fetchFewDaysForecast: (locationKey: string) => void
 	weatherConditionsHistory: WeatherConditionHistoryItem[]
 	fetchWeatherConditionsHistory: (locationKey: string) => void
-	currentWeatherConditions?: WeatherConditionHistoryItem
-	fetchCurrentWeatherConditions: (locationKey: string) => void
+	fetchCurrentWeatherConditions: (locationKey: string) => Promise<WeatherConditionHistoryItem>
 }
 
 const ForecastContext = createContext<ForecastContextType | undefined>(undefined)
@@ -37,8 +36,6 @@ type ForecastProviderProps = {
 export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) => {
 	const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(TemperatureUnit.Celsius)
 	const [fewDaysForcast, setFewDaysForcast] = useState<ForecastDayItem[]>([])
-	const [currentWeatherConditions, setCurrentWeatherConditions] =
-		useState<WeatherConditionHistoryItem>()
 	const [weatherConditionsHistory, setWeatherConditionsHistory] = useState<
 		WeatherConditionHistoryItem[]
 	>([])
@@ -65,14 +62,17 @@ export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) 
 		}
 	}
 
-	const fetchCurrentWeatherConditions = async (locationKey: string) => {
+	const fetchCurrentWeatherConditions = async (
+		locationKey: string,
+	): Promise<WeatherConditionHistoryItem> => {
 		try {
 			const res = await axios.get(`/api/currentConditions/${locationKey}`)
 			const currentConditions = getWeatherConditionHistoryItems(res.data)[0]
 
-			setCurrentWeatherConditions(currentConditions)
+			return currentConditions
 		} catch (error) {
 			console.error('Failed to fetch current conditions', error)
+			throw error
 		}
 	}
 
@@ -83,8 +83,7 @@ export const ForecastProvider: React.FC<ForecastProviderProps> = ({ children }) 
 		fetchFewDaysForecast,
 		weatherConditionsHistory,
 		fetchWeatherConditionsHistory,
-		currentWeatherConditions: currentWeatherConditions,
-		fetchCurrentWeatherConditions: fetchCurrentWeatherConditions,
+		fetchCurrentWeatherConditions,
 	}
 
 	return <ForecastContext.Provider value={values}>{children}</ForecastContext.Provider>

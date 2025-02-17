@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 import { CurrentWeather } from '@/components/CurrentWeather/CurrentWeather'
 import { useForecast } from '@/contexts/forecastContext'
@@ -9,34 +9,35 @@ import { getLocationName } from '@/utils/location'
 import { Spinner } from '@/components/Spinner/Spinner'
 
 export const CurrentWeatherSection = () => {
-	const {
-		temperatureUnit,
-		setTemperatureUnit,
-		currentWeatherConditions,
-		fetchCurrentWeatherConditions,
-	} = useForecast()
+	const { temperatureUnit, setTemperatureUnit, fetchCurrentWeatherConditions } = useForecast()
 	const { locationData } = useLocation()
 
-	useEffect(() => {
-		if (locationData?.locationKey) {
-			fetchCurrentWeatherConditions(locationData.locationKey)
-		}
-	}, [locationData?.locationKey])
+	const {
+		data = {
+			temperature: { C: 0, F: 0 },
+			weatherInfo: 'Fetching weather data...',
+			date: Date(),
+		},
+		isLoading,
+	} = useQuery({
+		queryKey: ['currentWeatherConditions'],
+		queryFn: () => fetchCurrentWeatherConditions(locationData?.locationKey!),
+		enabled: !!locationData?.locationKey,
+	})
 
 	const locationName = getLocationName(locationData)
-	const currentWeather = currentWeatherConditions
 
 	return (
 		<section className="dark-section pt-14 pb-32 px-4">
-			{!currentWeather ? (
+			{isLoading ? (
 				<Spinner />
 			) : (
 				<CurrentWeather
 					unit={temperatureUnit}
-					location={locationName || ''}
-					temperature={currentWeather?.temperature?.[temperatureUnit]}
-					weatherInfo={currentWeather?.weatherInfo}
-					date={currentWeather?.date}
+					location={locationName || 'Checking your location'}
+					temperature={data?.temperature?.[temperatureUnit]}
+					weatherInfo={data?.weatherInfo}
+					date={data?.date}
 					onUnitChange={setTemperatureUnit}
 				/>
 			)}
