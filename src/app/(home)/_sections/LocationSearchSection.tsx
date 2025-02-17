@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { Autocomplete } from '@/components/Autocomplete/Autocomplete'
 import { useLocation } from '@/contexts/locationContext'
 import { LocationData } from '@/types/location'
+import { getCitiesSuggestions } from '@/utils/location-api'
 
 export const LocationSearchSection = () => {
-	const { setLocationData, getCitiesSuggestions } = useLocation()
+	const { setLocationData } = useLocation()
 	const [locationsList, setLocationsList] = useState<LocationData[]>([])
 
 	const onSearchCallback = async (search: string) => {

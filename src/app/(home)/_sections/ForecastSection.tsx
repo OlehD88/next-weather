@@ -1,20 +1,22 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
+
 import { WeatherCard } from '@/components/WeatherCard/WeatherCard'
 import { useForecast } from '@/contexts/forecastContext'
 import { useLocation } from '@/contexts/locationContext'
 import { Spinner } from '@/components/Spinner/Spinner'
+import { fetchFewDaysForecast } from '@/utils/forecast-api'
 
 export const ForecastSection = () => {
-	const { temperatureUnit, fewDaysForcast, fetchFewDaysForecast } = useForecast()
+	const { temperatureUnit } = useForecast()
 	const { locationData } = useLocation()
 
-	useEffect(() => {
-		if (locationData?.locationKey) {
-			fetchFewDaysForecast(locationData.locationKey)
-		}
-	}, [locationData?.locationKey, temperatureUnit])
+	const { data = [], isLoading } = useQuery({
+		queryKey: ['fewDaysForecast', locationData?.locationKey, temperatureUnit],
+		queryFn: () => fetchFewDaysForecast(locationData?.locationKey!, temperatureUnit),
+		enabled: !!locationData?.locationKey,
+	})
 
 	return (
 		<section className="flex justify-center pt-24 pb-28 px-4">
@@ -23,8 +25,8 @@ export const ForecastSection = () => {
 					5 Days Forecast
 				</h2>
 				<div className="flex flex-col sm:flex-row flex-wrap items-center sm:items-stretch justify-center gap-4">
-					{!fewDaysForcast.length && <Spinner />}
-					{fewDaysForcast.map((day) => (
+					{isLoading && <Spinner />}
+					{data.map((day) => (
 						<WeatherCard
 							key={day.date}
 							date={day.date}

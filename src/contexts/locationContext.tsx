@@ -1,13 +1,11 @@
 'use client'
 import { createContext, ReactNode, useState, useEffect, useContext } from 'react'
-import axios from 'axios'
 import { LocationData } from '@/types/location'
-import { getLocationData } from '@/utils/location'
+import { fetchLocationByPosition } from '@/utils/location-api'
 
 type LocationContextType = {
 	locationData: LocationData | null
 	setLocationData: (locationData: LocationData) => void
-	getCitiesSuggestions: (searchQuery: string) => Promise<LocationData[]>
 }
 
 const LocationContext = createContext<LocationContextType | undefined>(undefined)
@@ -29,22 +27,6 @@ type LocationProviderProps = {
 export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) => {
 	const [locationData, setLocationData] = useState<LocationData | null>(null)
 
-	const fetchLocationByPosition = async (
-		position: GeolocationPosition,
-	): Promise<LocationData | null> => {
-		const { latitude, longitude } = position.coords
-		try {
-			const res = await axios.get('/api/geopositionSearch', {
-				params: { lat: latitude, lon: longitude },
-			})
-			const locationData = getLocationData(res.data)
-			return locationData
-		} catch (error) {
-			console.error('Failed to fetch location data', error)
-			return null
-		}
-	}
-
 	const handleInitUserLocation = async () => {
 		if (navigator?.geolocation) {
 			navigator.geolocation.getCurrentPosition(
@@ -64,25 +46,12 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) 
 		}
 	}
 
-	const getCitiesSuggestions = async (searchQuery: string) => {
-		try {
-			const res = await axios.get('/api/citiesAutocomplete', {
-				params: { searchQuery },
-			})
-			const locationDataList = res.data.map(getLocationData)
-			return locationDataList
-		} catch (error) {
-			console.error('Failed to fetch cities suggestions', error)
-			return []
-		}
-	}
-
 	useEffect(() => {
 		handleInitUserLocation()
 	}, [])
 
 	return (
-		<LocationContext.Provider value={{ locationData, setLocationData, getCitiesSuggestions }}>
+		<LocationContext.Provider value={{ locationData, setLocationData }}>
 			{children}
 		</LocationContext.Provider>
 	)

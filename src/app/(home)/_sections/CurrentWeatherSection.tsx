@@ -7,9 +7,10 @@ import { useForecast } from '@/contexts/forecastContext'
 import { useLocation } from '@/contexts/locationContext'
 import { getLocationName } from '@/utils/location'
 import { Spinner } from '@/components/Spinner/Spinner'
+import { fetchCurrentWeatherConditions } from '@/utils/forecast-api'
 
 export const CurrentWeatherSection = () => {
-	const { temperatureUnit, setTemperatureUnit, fetchCurrentWeatherConditions } = useForecast()
+	const { temperatureUnit, setTemperatureUnit } = useForecast()
 	const { locationData } = useLocation()
 
 	const {
@@ -20,7 +21,7 @@ export const CurrentWeatherSection = () => {
 		},
 		isLoading,
 	} = useQuery({
-		queryKey: ['currentWeatherConditions'],
+		queryKey: ['currentWeatherConditions', locationData?.locationKey],
 		queryFn: () => fetchCurrentWeatherConditions(locationData?.locationKey!),
 		enabled: !!locationData?.locationKey,
 	})

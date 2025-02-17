@@ -1,21 +1,24 @@
 'use client'
+
 import { LineChart, Line, ResponsiveContainer, XAxis, Tooltip } from 'recharts'
+import { useQuery } from '@tanstack/react-query'
+
 import { useForecast } from '@/contexts/forecastContext'
-import { useEffect } from 'react'
 import { useLocation } from '@/contexts/locationContext'
 import { buildWeatherHistoryChartData } from '@/utils/forecast'
+import { fetchWeatherConditionsHistory } from '@/utils/forecast-api'
 
 export const ChartsSection = () => {
-	const { weatherConditionsHistory, fetchWeatherConditionsHistory, temperatureUnit } = useForecast()
+	const { temperatureUnit } = useForecast()
 	const { locationData } = useLocation()
 
-	useEffect(() => {
-		if (locationData?.locationKey) {
-			fetchWeatherConditionsHistory(locationData.locationKey)
-		}
-	}, [locationData?.locationKey])
+	const { data = [] } = useQuery({
+		queryKey: ['weatherConditionsHistory', locationData?.locationKey],
+		queryFn: () => fetchWeatherConditionsHistory(locationData?.locationKey!),
+		enabled: !!locationData?.locationKey,
+	})
 
-	const chartData = buildWeatherHistoryChartData(weatherConditionsHistory, temperatureUnit)
+	const chartData = buildWeatherHistoryChartData(data, temperatureUnit)
 
 	return (
 		<section className="dark-section pt-24 pb-16 px-4">
