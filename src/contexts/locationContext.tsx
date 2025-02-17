@@ -2,6 +2,7 @@
 import { createContext, ReactNode, useState, useEffect, useContext } from 'react'
 import { LocationData } from '@/types/location'
 import { fetchLocationByPosition } from '@/utils/location-api'
+import { toast } from 'react-toastify'
 
 type LocationContextType = {
 	locationData: LocationData | null
@@ -34,15 +35,19 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) 
 					const locationData = await fetchLocationByPosition(position)
 					setLocationData(locationData)
 				},
-				(error) => {
-					console.error(
-						"We can't show your current location weather. Please share with us your location to see the weather in your city",
-						error,
+				() => {
+					toast.error(
+						'Unable to display weather for your current location. Please enable location services in your browser settings.',
+						{ autoClose: 5000 },
 					)
 				},
 			)
 		} else {
-			console.error('Failec to get your location. Geolocation is not supported by this browser')
+			toast.error(
+				'Unable to display weather for your current location. Geolocation is not supported by this browser',
+				{ autoClose: 5000 },
+			)
+			console.error('Failed to get your location. Geolocation is not supported by this browser')
 		}
 	}
 
