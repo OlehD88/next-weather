@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import clsx from 'clsx'
 
-type AutocompleteProps = {
+export type AutocompleteProps = {
 	inputId?: string
 	label: string
 	placeholder?: string
@@ -64,7 +64,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
 	return (
 		<div className="relative max-w-2xl w-full">
-			<div>
+			<div data-testid="autocomplete-input-section">
 				<div className="mb-2">
 					<label htmlFor={inputId} className="accent-color text-lg">
 						{label}
@@ -72,6 +72,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 				</div>
 				<input
 					id={inputId}
+					data-testid={inputId}
 					type="text"
 					placeholder={placeholder}
 					value={search}
@@ -87,6 +88,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 					block: showResults,
 					hidden: !showResults,
 				})}
+				data-testid="autocomplete-results"
 			>
 				{searchResults.map((result) => (
 					<li

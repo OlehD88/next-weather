@@ -20,13 +20,13 @@ export const ChartsSection = () => {
 	})
 
 	const chartData = buildWeatherHistoryChartData(data, temperatureUnit)
-	const showSpinner = isLoading || !locationData?.locationKey
+	const showSpinner = isLoading || !locationData?.locationKey || chartData.length === 0
 
 	return (
 		<section className="dark-section pt-24 pb-24 px-4">
 			<div className="max-w-5xl w-full">
 				<h2 className="text-center md:text-left text-4xl font-bold mb-2">Daily evolution</h2>
-				<div className="max-h-96 h-200 px-8">
+				<div className="max-h-96 h-full px-8">
 					{showSpinner ? (
 						<div className="flex justify-center items-center mt-20">
 							<Spinner />
