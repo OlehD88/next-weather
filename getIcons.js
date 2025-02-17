@@ -7,6 +7,10 @@ const ICONS_URL = 'https://developer.accuweather.com/weather-icons'
 const DOWNLOAD_DIR = path.join(__dirname, 'public/icons')
 
 async function fetchIcons() {
+	if (fs.existsSync(DOWNLOAD_DIR)) {
+		fs.rmSync(DOWNLOAD_DIR, { recursive: true, force: true })
+	}
+
 	try {
 		https
 			.get(ICONS_URL, (res) => {

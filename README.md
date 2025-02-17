@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NextJS/React Weather App
 
-## Getting Started
+This is a nice app for checking weather conditions. Here I used AccuWeather API https://developer.accuweather.com/. The app by default will show you weather conditions at your current location.
 
-First, run the development server:
+## Current Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- ☀️ Possibility to select a city for showing weather conditions
+- ☀️ Ability to select temperature unit between Celsius and Fahrenheit
+- ☀️ Show current conditions at the selected location
+- ☀️ Show the next 5 days forecast for the selected location
+- ☀️ Show history of weather conditions for the past 24 hours
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Start a project
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For starting a project you need to do the following steps:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. First run `npm install` to install node packages.
+2. You should go to the AccuWeather website and register your app. You will get an API key there that you will need to properly use this app.
+3. There is an `.env.example` file. You should rename it to `.env` and add your API key there to the variable `WEATHER_API_KEY`.
+4. Then just run `npm run dev` and you should be good to go.
 
-## Learn More
+## Additional setup
 
-To learn more about Next.js, take a look at the following resources:
+- Currently, there are downloaded weather icons inside the `public/icons` folder. I downloaded them from this page https://developer.accuweather.com/weather-icons and currently, they are connected to the AccuWeather API.
+  If those icons are updated on the AccuWeather page, you should run the `npm run get:icons` script to download them again.
+- There are ESLint and Prettier integrations. To run them manually, you can run `npm run lint` and `npm run format`.
+- To run unit tests, you should run `npm run test`.
+- To run Storybook, you should use the script `npm run storybook`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Technology Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ✅ TypeScript
+- ✅ NextJs
+- ✅ [Recharts](https://recharts.org/en-US/) for daily weather chart
+- ✅ [React-Toastify](https://github.com/fkhadra/react-toastify) for user notifications
+- ✅ [React-Query](https://tanstack.com/query/latest) and [Axios](https://axios-http.com/) for API calls
+- ✅ [Jest](https://jestjs.io/) for unit tests
+- ✅ [Storybook](https://storybook.js.org/) for components sandbox
